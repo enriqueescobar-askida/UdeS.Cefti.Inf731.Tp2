@@ -30,11 +30,11 @@
                 while ((line = streamReader.ReadLine()) != null)
                 {
                     boo = line.Contains(";");
+                    if (!boo)
+                        throw new ConvoyDataException("Character ';' cannot be found");
                     Console.Out.WriteLine(line);
                 }
             }
-            if (!boo)
-                throw new ConvoyDataException("Character ';' cannot be found");
         }
         #endregion
 
