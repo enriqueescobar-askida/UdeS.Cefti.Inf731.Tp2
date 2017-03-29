@@ -4,6 +4,7 @@
 
     public class PassengerWagon : AbstractWagon
     {
+        private const int PassLimit = 100;
         #region AbstractProperties
         private const int limit = 11000;
         public override int Limit => limit;

@@ -34,8 +34,10 @@
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ConvoyArgumentException.cs" />
     <Compile Include="ConvoyDataException.cs" />
     <Compile Include="ConvoyFileNotFoundException.cs" />
+    <Compile Include="ConvoyOutOfRangeException.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

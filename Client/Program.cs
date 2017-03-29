@@ -8,7 +8,9 @@
         static void Main(string[] args)
         {
             ConvoyReader convoyReader = new ConvoyReader(@"..\..\..\train1.txt");
-            Console.Out.WriteLine(convoyReader);
+            convoyReader.ReadFile();
+            Console.Out.WriteLine(convoyReader.LocomotiveInfo);
+            Console.Out.WriteLine(convoyReader.OperationList.Count);
             Console.In.ReadLine();
         }
     }
