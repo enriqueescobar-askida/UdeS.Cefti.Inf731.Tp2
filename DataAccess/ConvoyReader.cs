@@ -38,7 +38,8 @@
                         throw new ConvoyDataException("Character ';' cannot be found");
                     if (count == 0)
                         this.ValidateLocomotive(line);
-                    else operationList.Add(line);
+                    else if (this.ValidateOperation(line))
+                        operationList.Add(line);
                     Console.Out.WriteLine(line);
                     count++;
                 }
@@ -55,6 +56,15 @@
         #endregion
 
         #region PrivateMethods
+        private bool ValidateOperation(string line)
+        {
+            string s = line.ToUpperInvariant();
+            bool boo = s.Contains("A") || s.Contains("M") || s.Contains("P") || s.Contains("S");
+
+            if(!boo) throw new ConvoyOutOfRangeException("Error A|M|P not exists on string:" + line);
+
+            return boo;
+        }
         private void ValidateLocomotive(string line)
         {
             string[] s = line.Split(';');

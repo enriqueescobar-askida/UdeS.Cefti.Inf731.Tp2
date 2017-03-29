@@ -2,6 +2,8 @@
 {
     using System;
 
+    using BusinessLogic;
+
     using DataAccess;
     class Program
     {
@@ -12,6 +14,7 @@
             Console.Out.WriteLine(convoyReader.LocomotiveInfo);
             Console.Out.WriteLine(convoyReader.OperationList.Count);
             Console.In.ReadLine();
+            Convoy convoy = new Convoy(convoyReader.LocomotiveInfo);
         }
     }
 }

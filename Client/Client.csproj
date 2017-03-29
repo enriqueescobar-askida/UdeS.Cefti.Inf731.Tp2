@@ -44,6 +44,10 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\BusinessLogic\BusinessLogic.csproj">
+      <Project>{3ADC52FE-0DC8-4687-A0C0-C2FBB46025F1}</Project>
+      <Name>BusinessLogic</Name>
+    </ProjectReference>
     <ProjectReference Include="..\DataAccess\DataAccess.csproj">
       <Project>{6935c955-3f5e-4abe-9eef-fa8442f93b11}</Project>
       <Name>DataAccess</Name>
