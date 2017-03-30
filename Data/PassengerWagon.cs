@@ -9,11 +9,9 @@
         private const int limit = 11000;
         public override int Limit => limit;
         #endregion
-
         #region Properties
         public List<Passenger> PassengerList { get; internal set; }
         #endregion
-
         #region Constructor
         public PassengerWagon()
         {

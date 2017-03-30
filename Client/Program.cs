@@ -17,7 +17,10 @@
                 convoy = new Convoy(convoyReader.LocomotiveInfo);
                 Console.Out.WriteLine(convoyReader.OperationList.Count);
             }
-            Console.Out.WriteLine(convoy);
+            Console.Out.WriteLine(convoy.Locomotive);
+            Console.Out.WriteLine(convoy.Transaction("A;M;10500"));
+            Console.Out.WriteLine(convoy.Transaction("A;P;85"));
+            Console.Out.WriteLine(convoy.Transaction("S;5"));
             Console.In.ReadLine();
         }
     }

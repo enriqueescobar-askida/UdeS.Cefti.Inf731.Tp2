@@ -34,12 +34,10 @@
         /// It gives your base class the opportunity to finalize. 
         /// Do not provide destructors in types derived from this class.
         ~ConvoyReader()
-
         {
             // Do not re-create Dispose clean-up code here. 
             // Calling Dispose(false) is optimal in terms of readability and maintainability. 
             this.Dispose(false);
-
         }
         #endregion
 
@@ -87,11 +85,14 @@
         private bool ValidateOperation(string line)
         {
             string s = line.ToUpperInvariant();
+            int count = line.Split(';').Length;
+
             bool boo = s.Contains("A") || s.Contains("M") || s.Contains("P") || s.Contains("S");
+            if (!boo) throw new ConvoyOutOfRangeException("Error A|M|P|S not exists on string:" + line);
+            bool hasStart = (s.StartsWith("A") && count==3) || (s.StartsWith("S") && count==2);
+            if (!hasStart) throw new ConvoyArgumentException("Error A|M|P|S not exists on string:" + line);
 
-            if(!boo) throw new ConvoyOutOfRangeException("Error A|M|P not exists on string:" + line);
-
-            return boo;
+            return boo && hasStart;
         }
         private void ValidateLocomotive(string line)
         {

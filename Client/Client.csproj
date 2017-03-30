@@ -52,6 +52,10 @@
       <Project>{6935c955-3f5e-4abe-9eef-fa8442f93b11}</Project>
       <Name>DataAccess</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Data\Data.csproj">
+      <Project>{2437f23b-10a2-4f8e-9936-5da36ba41df8}</Project>
+      <Name>Data</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
