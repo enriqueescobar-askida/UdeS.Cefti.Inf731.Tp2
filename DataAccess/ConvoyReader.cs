@@ -6,10 +6,15 @@
 
     using Exceptions;
 
-    public class ConvoyReader
+    public class ConvoyReader : IDisposable
     {
+        #region PrivateAttributes
+        /// Flag for disposed resources
+        private bool _IsDisposed = false;
+        #endregion
+
         #region Properties
-        private readonly string filePath;
+        private string filePath;
         public string LocomotiveInfo { get; internal set; }
         public List<string> OperationList { get; internal set; }
         #endregion
@@ -19,6 +24,22 @@
         {
             if (new FileInfo(aFilePath).Exists) this.filePath = aFilePath;
             else throw new ConvoyFileNotFoundException("File path cannot be found");
+        }
+        #endregion
+
+        #region Destructor
+        /// Releases unmanaged resources and performs other cleanup operations before the 
+        /// is reclaimed by garbage collection. 
+        /// This destructor will run only if the Dispose method does not get called. 
+        /// It gives your base class the opportunity to finalize. 
+        /// Do not provide destructors in types derived from this class.
+        ~ConvoyReader()
+
+        {
+            // Do not re-create Dispose clean-up code here. 
+            // Calling Dispose(false) is optimal in terms of readability and maintainability. 
+            this.Dispose(false);
+
         }
         #endregion
 
@@ -45,6 +66,13 @@
                 }
             }
             this.OperationList = operationList;
+        }
+        /// Performs application-defined tasks associated with freeing, releasing, or resetting unmanaged resources. 
+        /// Do not make this method virtual, a derived class should not be able to override this method.
+        public void Dispose()
+        {
+            this.Dispose(true);
+            GC.SuppressFinalize(this);
         }
         #endregion
 
@@ -77,6 +105,22 @@
                 this.LocomotiveInfo = line;
             else
                 throw new ConvoyArgumentException("Wrong argument format");
+        }
+        private void Dispose(bool isDisposing)
+        {
+            //Check if Dispose has been called 
+            if (!this._IsDisposed)
+            {//dispose managed and unmanaged resources 
+                if (isDisposing)
+                {//managed resources clean 
+                    this.OperationList = null;
+                    this.LocomotiveInfo = this.filePath = String.Empty;
+                }
+                //unmanaged resources clean 
+                
+                //confirm cleaning 
+                this._IsDisposed = true;
+            }
         }
         #endregion
     }
