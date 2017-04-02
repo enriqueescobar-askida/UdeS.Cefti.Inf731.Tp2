@@ -18,6 +18,17 @@
         {
             this.WeightInKilos = weight;
         }
+
+        public PassengerWagon(List<Passenger> passengers)
+        {
+            this.PassengerList = passengers;
+            int kilos = 0;
+            foreach (Passenger passenger in passengers)
+            {
+                kilos += passenger.WeightInKilos;
+            }
+            this.WeightInKilos = kilos;
+        }
         #endregion
     }
 }
