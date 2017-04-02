@@ -1,7 +1,6 @@
 ﻿namespace BusinessLogic
 {
     using System.Collections.Generic;
-    using System.Linq;
 
     using Data;
 
@@ -10,6 +9,7 @@
         #region Properties
         public Locomotive Locomotive { get; internal set; }
         public Stack<AbstractWagon> WagonStack { get; internal set; }
+        public int Length { get; internal set; }
         public JournalLog JournalLog { get; internal set; }
         #endregion
 
@@ -18,6 +18,7 @@
         {
             this.Locomotive = new Locomotive(locomotiveInfo);
             this.WagonStack = new Stack<AbstractWagon>();
+            this.Length = 0;
         }
         #endregion
 
@@ -26,7 +27,8 @@
         {
             if (this.ValidateTransation(operation))
             {
-                if (this.IsSuppression(operation)) return true;
+                if (this.IsSuppression(operation))
+                    this.RemoveWagon(operation);
                 if (this.IsAddition(operation))
                     this.AddWagon(operation);
                 
@@ -37,6 +39,18 @@
         #endregion
 
         #region PrivateMethods
+        private void RemoveWagon(string operation)
+        {
+            int times = int.Parse(operation.Split(';')[1]);
+            if (times <= this.Length)
+            {
+                for (int i = 0; i < times; i++)
+                {
+                    AbstractWagon abstractWagon = this.WagonStack.Pop();
+                }
+                this.Length = this.WagonStack.Count;
+            }
+        }
         private void AddWagon(string operation)
         {
             if (operation.Split(';')[1].Equals("M")) this.AddMerchandiseWagon(operation);
@@ -52,11 +66,13 @@
 
             PassengerWagon p = new PassengerWagon(passengers);
             this.WagonStack.Push(p);
+            this.Length = this.WagonStack.Count;
         }
         private void AddMerchandiseWagon(string operation)
         {
             MerchandiseWagon m = new MerchandiseWagon(int.Parse(operation.Split(';')[2]));
             this.WagonStack.Push(m);
+            this.Length = this.WagonStack.Count;
         }
 
         private bool IsAddition(string operation)

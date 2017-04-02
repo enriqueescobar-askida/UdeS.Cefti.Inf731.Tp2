@@ -52,6 +52,7 @@
                 int count = 0;
                 while ((line = streamReader.ReadLine()) != null)
                 {
+                    line = line.ToUpperInvariant();
                     bool boo = line.Contains(";");
                     if (!boo)
                         throw new ConvoyDataException("Character ';' cannot be found");
@@ -84,12 +85,11 @@
         #region PrivateMethods
         private bool ValidateOperation(string line)
         {
-            string s = line.ToUpperInvariant();
             int count = line.Split(';').Length;
 
-            bool boo = s.Contains("A") || s.Contains("M") || s.Contains("P") || s.Contains("S");
+            bool boo = line.Contains("A") || line.Contains("M") || line.Contains("P") || line.Contains("S");
             if (!boo) throw new ConvoyOutOfRangeException("Error A|M|P|S not exists on string:" + line);
-            bool hasStart = (s.StartsWith("A") && count==3) || (s.StartsWith("S") && count==2);
+            bool hasStart = (line.StartsWith("A") && count==3) || (line.StartsWith("S") && count==2);
             if (!hasStart) throw new ConvoyArgumentException("Error A|M|P|S not exists on string:" + line);
 
             return boo && hasStart;

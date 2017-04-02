@@ -18,7 +18,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SolutionFolder", "SolutionF
 		README.md = README.md
 		train1.txt = train1.txt
 		train2.txt = train2.txt
+		UdeS.Cefti.Inf731.Tp2.docx = UdeS.Cefti.Inf731.Tp2.docx
 		UdeS.Cefti.Inf731.Tp2.pdf = UdeS.Cefti.Inf731.Tp2.pdf
+		UdeS.Cefti.Inf731.Tp2.Report.docx = UdeS.Cefti.Inf731.Tp2.Report.docx
 	EndProjectSection
 EndProject
 Global

@@ -1,5 +1,7 @@
 ﻿namespace Data
 {
+    using Exceptions;
+
     public class MerchandiseWagon : AbstractWagon
     {
         private const int defaultKilos = 2500;
@@ -10,6 +12,8 @@
         #region Constructor
         public MerchandiseWagon(int weight = defaultKilos)
         {
+            /*if (weight<defaultKilos || weight>this.Limit)
+                throw new WagonOutOfRangeException("Weight is out of range [" + defaultKilos + "," + this.Limit + "]");*/
             this.WeightInKilos = weight;
         }
         #endregion

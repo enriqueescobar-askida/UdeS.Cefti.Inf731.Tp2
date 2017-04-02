@@ -18,13 +18,15 @@
                 convoy = new Convoy(convoyReader.LocomotiveInfo);
                 operationList = convoyReader.OperationList;
             }
-            Console.Out.WriteLine(operationList.Count);
             Console.Out.WriteLine(convoy.Locomotive);
-            Console.Out.WriteLine(convoy.Transaction("A;M;10500"));
+            Console.Out.WriteLine(operationList.Count);
+            /*Console.Out.WriteLine(convoy.Transaction("A;M;10500"));
             Console.Out.WriteLine(convoy.Transaction("A;M;11111"));
-            Console.Out.WriteLine(convoy.Transaction("A;P;85"));
-            Console.Out.WriteLine(convoy.WagonStack.Count);
+            Console.Out.WriteLine(convoy.Transaction("A;P;85"));*/
             //Console.Out.WriteLine(convoy.Transaction("S;5"));
+            foreach (string s in operationList)
+                Console.Out.WriteLine(convoy.Transaction(s));
+            Console.Out.WriteLine(convoy.WagonStack.Count);
             Console.In.ReadLine();
         }
     }
