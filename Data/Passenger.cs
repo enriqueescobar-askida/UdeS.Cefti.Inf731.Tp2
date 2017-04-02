@@ -10,13 +10,14 @@
         #endregion
 
         #region Properties
+        private const int defaultKilos = 80;
         public int WeightInKilos { get; internal set; }
         #endregion
 
         #region Constructor
-        public Passenger()
+        public Passenger(int weight = defaultKilos)
         {
-            this.WeightInKilos = 80;
+            this.WeightInKilos = weight;
         }
         #endregion
 

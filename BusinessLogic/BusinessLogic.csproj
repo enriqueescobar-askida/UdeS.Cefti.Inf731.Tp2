@@ -35,7 +35,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Convoy.cs" />
-    <Compile Include="ConvoyManager.cs" />
+    <Compile Include="JournalLog.cs" />
+    <Compile Include="EntryLog.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
