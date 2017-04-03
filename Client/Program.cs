@@ -6,7 +6,7 @@
     using BusinessLogic;
 
     using DataAccess;
-    class Program
+    public class Program
     {
         static void Main(string[] args)
         {
@@ -18,15 +18,19 @@
                 convoy = new Convoy(convoyReader.LocomotiveInfo);
                 operationList = convoyReader.OperationList;
             }
+            Console.Out.WriteLine("BOO " + operationList[1].ItsAdding);
             Console.Out.WriteLine(convoy.Locomotive);
+            Console.Out.WriteLine("BEE " + convoy.Transaction(operationList[1]));
             Console.Out.WriteLine(operationList.Count);
+            foreach (Operation o in operationList)
+                Console.Out.WriteLine(o.Command);
             /*Console.Out.WriteLine(convoy.Transaction("A;M;10500"));
             Console.Out.WriteLine(convoy.Transaction("A;M;11111"));
             Console.Out.WriteLine(convoy.Transaction("A;P;85"));*/
             //Console.Out.WriteLine(convoy.Transaction("S;5"));
-            /*foreach (var s in operationList)
-                Console.Out.WriteLine(convoy.Transaction(s));
-            Console.Out.WriteLine(convoy.WagonStack.Count);*/
+            /*foreach (Operation o in operationList)
+                Console.Out.WriteLine(o.Command);*/
+            /*Console.Out.WriteLine(convoy.WagonStack.Count);*/
             Console.In.ReadLine();
         }
     }

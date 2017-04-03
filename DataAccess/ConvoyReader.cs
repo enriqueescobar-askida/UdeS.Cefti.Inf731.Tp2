@@ -28,15 +28,15 @@
         #endregion
 
         #region Destructor
-        /// Releases unmanaged resources and performs other cleanup operations before the 
-        /// is reclaimed by garbage collection. 
-        /// This destructor will run only if the Dispose method does not get called. 
-        /// It gives your base class the opportunity to finalize. 
+        /// Releases unmanaged resources and performs other cleanup operations before the
+        /// is reclaimed by garbage collection.
+        /// This destructor will run only if the Dispose method does not get called.
+        /// It gives your base class the opportunity to finalize.
         /// Do not provide destructor in types derived from this class.
         ~ConvoyReader()
         {
-            // Do not re-create Dispose clean-up code here. 
-            // Calling Dispose(false) is optimal in terms of readability and maintainability. 
+            // Do not re-create Dispose clean-up code here.
+            // Calling Dispose(false) is optimal in terms of readability and maintainability.
             this.Dispose(false);
         }
         #endregion
@@ -58,14 +58,14 @@
                         throw new ConvoyDataException("Character ';' cannot be found");
                     if (count == 0)
                         this.ValidateLocomotive(line);
-                    else using(Operation o = new Operation(line)) operationList.Add(o);
+                    else operationList.Add(new Operation(line));
                     Console.Out.WriteLine(line);
                     count++;
                 }
             }
             this.OperationList = operationList;
         }
-        /// Performs application-defined tasks associated with freeing, releasing, or resetting unmanaged resources. 
+        /// Performs application-defined tasks associated with freeing, releasing, or resetting unmanaged resources.
         /// Do not make this method virtual, a derived class should not be able to override this method.
         public void Dispose()
         {
@@ -97,17 +97,17 @@
         }
         private void Dispose(bool isDisposing)
         {
-            //Check if Dispose has been called 
+            //Check if Dispose has been called
             if (!this._IsDisposed)
-            {//dispose managed and unmanaged resources 
+            {//dispose managed and unmanaged resources
                 if (isDisposing)
-                {//managed resources clean 
+                {//managed resources clean
                     this.OperationList = null;
                     this.LocomotiveInfo = this.filePath = String.Empty;
                 }
-                //unmanaged resources clean 
-                
-                //confirm cleaning 
+                //unmanaged resources clean
+
+                //confirm cleaning
                 this._IsDisposed = true;
             }
         }

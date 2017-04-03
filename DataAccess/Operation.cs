@@ -25,13 +25,13 @@
             if (this.ValidateLine(line.ToUpperInvariant()))
             {
                 this.Command = line.ToUpperInvariant();
-                if (this.Command.StartsWith("A"))
+                if (this.Command.StartsWith("A", StringComparison.Ordinal))
                 {
                     this.ItsAdding = true;
                     this.AddsPassenger = this.Command.Split(';')[1].Equals("P");
                     this.AddsMerchandise = this.Command.Split(';')[1].Equals("M");
                 }
-                if (this.Command.StartsWith("S"))
+                if (this.Command.StartsWith("S", StringComparison.Ordinal))
                 {
                     this.ItsRemoving = true;
                     this.AddsPassenger = false;
@@ -42,15 +42,15 @@
         #endregion
 
         #region Destructor
-        /// Releases unmanaged resources and performs other cleanup operations before the 
-        /// is reclaimed by garbage collection. 
-        /// This destructor will run only if the Dispose method does not get called. 
-        /// It gives your base class the opportunity to finalize. 
+        /// Releases unmanaged resources and performs other cleanup operations before the
+        /// is reclaimed by garbage collection.
+        /// This destructor will run only if the Dispose method does not get called.
+        /// It gives your base class the opportunity to finalize.
         /// Do not provide destructor in types derived from this class.
         ~Operation()
         {
-            // Do not re-create Dispose clean-up code here. 
-            // Calling Dispose(false) is optimal in terms of readability and maintainability. 
+            // Do not re-create Dispose clean-up code here.
+            // Calling Dispose(false) is optimal in terms of readability and maintainability.
             this.Dispose(false);
         }
         #endregion
@@ -73,16 +73,16 @@
         #region PrivateMethods
         private void Dispose(bool isDisposing)
         {
-            //Check if Dispose has been called 
+            //Check if Dispose has been called
             if (!this._IsDisposed)
-            {//dispose managed and unmanaged resources 
+            {//dispose managed and unmanaged resources
                 if (isDisposing)
-                {//managed resources clean 
+                {//managed resources clean
                     this.Command = String.Empty;
                 }
-                //unmanaged resources clean 
+                //unmanaged resources clean
                 this.ItsAdding = this.ItsRemoving = this.AddsPassenger = this.AddsMerchandise = false;
-                //confirm cleaning 
+                //confirm cleaning
                 this._IsDisposed = true;
             }
         }
@@ -94,14 +94,14 @@
                 throw new ConvoyArgumentException("Wrong number of parameters:" + length);
             if (length == 2)
             {
-                if (!line.StartsWith("S"))
+                if (!line.StartsWith("S", StringComparison.Ordinal))
                     throw new ConvoyOutOfRangeException("Wrong starting parameter:" + strings[0]);
                 if (int.Parse(strings[1]) < 0)
                     throw new ConvoyOutOfRangeException("Wrong parameter:" + strings[1]);
             }
             if (length == 3)
             {
-                if (!line.StartsWith("A"))
+                if (!line.StartsWith("A", StringComparison.Ordinal))
                     throw new ConvoyOutOfRangeException("Wrong starting parameter:" + strings[0]);
                 if (!strings[1].Equals("M") && !strings[1].Equals("P"))
                     throw new ConvoyArgumentException("Wrong parameter:" + strings[1]);

@@ -1,8 +1,10 @@
 ﻿namespace BusinessLogic
 {
+    using System;
     using System.Collections.Generic;
 
     using Data;
+    using DataAccess;
 
     public class Convoy
     {
@@ -31,10 +33,14 @@
                     this.RemoveWagon(operation);
                 if (this.IsAddition(operation))
                     this.AddWagon(operation);
-                
+
                 return true;
             }
             return false;
+        }
+        public string Transaction(Operation o)
+        {
+            return o.ItsAdding + " ^^ " ;
         }
         #endregion
 
@@ -61,7 +67,7 @@
         {
             int count = int.Parse(operation.Split(';')[2]);
             List<Passenger> passengers = new List<Passenger>(count);
-            for (int i = 0; i < count; i++) 
+            for (int i = 0; i < count; i++)
                 passengers.Add(new Passenger());
 
             PassengerWagon p = new PassengerWagon(passengers);
