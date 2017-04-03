@@ -11,7 +11,7 @@
         static void Main(string[] args)
         {
             Convoy convoy;
-            List<string> operationList;
+            List<Operation> operationList;
             using (ConvoyReader convoyReader = new ConvoyReader(@"..\..\..\train1.txt"))
             {
                 convoyReader.ReadFile();
@@ -24,9 +24,9 @@
             Console.Out.WriteLine(convoy.Transaction("A;M;11111"));
             Console.Out.WriteLine(convoy.Transaction("A;P;85"));*/
             //Console.Out.WriteLine(convoy.Transaction("S;5"));
-            foreach (string s in operationList)
+            /*foreach (var s in operationList)
                 Console.Out.WriteLine(convoy.Transaction(s));
-            Console.Out.WriteLine(convoy.WagonStack.Count);
+            Console.Out.WriteLine(convoy.WagonStack.Count);*/
             Console.In.ReadLine();
         }
     }

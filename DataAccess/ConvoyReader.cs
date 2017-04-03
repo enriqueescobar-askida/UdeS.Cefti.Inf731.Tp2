@@ -16,7 +16,7 @@
         #region Properties
         private string filePath;
         public string LocomotiveInfo { get; internal set; }
-        public List<string> OperationList { get; internal set; }
+        public List<Operation> OperationList { get; internal set; }
         #endregion
 
         #region Constructor
@@ -32,7 +32,7 @@
         /// is reclaimed by garbage collection. 
         /// This destructor will run only if the Dispose method does not get called. 
         /// It gives your base class the opportunity to finalize. 
-        /// Do not provide destructors in types derived from this class.
+        /// Do not provide destructor in types derived from this class.
         ~ConvoyReader()
         {
             // Do not re-create Dispose clean-up code here. 
@@ -44,7 +44,7 @@
         #region PublicMethods
         public void ReadFile()
         {
-            List<string> operationList = new List<string>();
+            List<Operation> operationList = new List<Operation>();
             FileStream fileStream = new FileStream(this.filePath, FileMode.Open, FileAccess.Read);
             using (StreamReader streamReader = new StreamReader(fileStream)) //, Encoding.UTF8))
             {
@@ -58,8 +58,7 @@
                         throw new ConvoyDataException("Character ';' cannot be found");
                     if (count == 0)
                         this.ValidateLocomotive(line);
-                    else if (this.ValidateOperation(line))
-                        operationList.Add(line);
+                    else using(Operation o = new Operation(line)) operationList.Add(o);
                     Console.Out.WriteLine(line);
                     count++;
                 }
@@ -83,17 +82,6 @@
         #endregion
 
         #region PrivateMethods
-        private bool ValidateOperation(string line)
-        {
-            int count = line.Split(';').Length;
-
-            bool boo = line.Contains("A") || line.Contains("M") || line.Contains("P") || line.Contains("S");
-            if (!boo) throw new ConvoyOutOfRangeException("Error A|M|P|S not exists on string:" + line);
-            bool hasStart = (line.StartsWith("A") && count==3) || (line.StartsWith("S") && count==2);
-            if (!hasStart) throw new ConvoyArgumentException("Error A|M|P|S not exists on string:" + line);
-
-            return boo && hasStart;
-        }
         private void ValidateLocomotive(string line)
         {
             string[] s = line.Split(';');
