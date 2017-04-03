@@ -13,6 +13,7 @@
 
         #region Properties
         public string Command { get; internal set; }
+        public int Value { get; internal set; }
         public bool ItsAdding { get; internal set; }
         public bool ItsRemoving { get; internal set; }
         public bool AddsPassenger { get; internal set; }
@@ -30,12 +31,14 @@
                     this.ItsAdding = true;
                     this.AddsPassenger = this.Command.Split(';')[1].Equals("P");
                     this.AddsMerchandise = this.Command.Split(';')[1].Equals("M");
+                    this.Value = int.Parse(this.Command.Split(';')[2]);
                 }
                 if (this.Command.StartsWith("S", StringComparison.Ordinal))
                 {
                     this.ItsRemoving = true;
                     this.AddsPassenger = false;
                     this.AddsMerchandise = false;
+                    this.Value = int.Parse(this.Command.Split(';')[1]);
                 }
             }
         }
@@ -82,6 +85,7 @@
                 }
                 //unmanaged resources clean
                 this.ItsAdding = this.ItsRemoving = this.AddsPassenger = this.AddsMerchandise = false;
+                this.Value = 0;
                 //confirm cleaning
                 this._IsDisposed = true;
             }

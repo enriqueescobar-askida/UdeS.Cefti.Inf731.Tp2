@@ -10,5 +10,10 @@
         {
             throw new NotImplementedException();
         }
+
+        public void Add(EntryLog entryLog)
+        {
+            this.EntryLogs.Add(entryLog);
+        }
     }
 }

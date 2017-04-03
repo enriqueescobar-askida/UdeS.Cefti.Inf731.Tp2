@@ -15,22 +15,19 @@
             using (ConvoyReader convoyReader = new ConvoyReader(@"..\..\..\train1.txt"))
             {
                 convoyReader.ReadFile();
-                convoy = new Convoy(convoyReader.LocomotiveInfo);
                 operationList = convoyReader.OperationList;
+                foreach (Operation o in operationList)
+                    Console.Out.WriteLine(o.Command);
+                convoy = new Convoy(convoyReader.LocomotiveInfo);
             }
-            Console.Out.WriteLine("BOO " + operationList[1].ItsAdding);
             Console.Out.WriteLine(convoy.Locomotive);
-            Console.Out.WriteLine("BEE " + convoy.Transaction(operationList[1]));
-            Console.Out.WriteLine(operationList.Count);
+            Console.Out.WriteLine(convoy.WagonStack.Count);
+
             foreach (Operation o in operationList)
-                Console.Out.WriteLine(o.Command);
-            /*Console.Out.WriteLine(convoy.Transaction("A;M;10500"));
-            Console.Out.WriteLine(convoy.Transaction("A;M;11111"));
-            Console.Out.WriteLine(convoy.Transaction("A;P;85"));*/
-            //Console.Out.WriteLine(convoy.Transaction("S;5"));
-            /*foreach (Operation o in operationList)
-                Console.Out.WriteLine(o.Command);*/
-            /*Console.Out.WriteLine(convoy.WagonStack.Count);*/
+            {
+                Console.Out.WriteLine(convoy.Transaction(o));
+                Console.Out.WriteLine(convoy.WagonStack.Count);
+            }
             Console.In.ReadLine();
         }
     }

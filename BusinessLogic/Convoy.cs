@@ -6,6 +6,8 @@
     using Data;
     using DataAccess;
 
+    using Microsoft.Win32.SafeHandles;
+
     public class Convoy
     {
         #region Properties
@@ -25,86 +27,58 @@
         #endregion
 
         #region PublicMethods
-        public bool Transaction(string operation)
-        {
-            if (this.ValidateTransation(operation))
-            {
-                if (this.IsSuppression(operation))
-                    this.RemoveWagon(operation);
-                if (this.IsAddition(operation))
-                    this.AddWagon(operation);
-
-                return true;
-            }
-            return false;
-        }
         public string Transaction(Operation o)
         {
-            return o.ItsAdding + " ^^ " ;
+            if(o.ItsAdding) this.AddWagon(o);
+            if(o.ItsRemoving) this.RemoveWagon(o.Value);
+            return o.Command + " ^^ " ;
         }
         #endregion
 
         #region PrivateMethods
-        private void RemoveWagon(string operation)
+        private void RemoveWagon(int times)
         {
-            int times = int.Parse(operation.Split(';')[1]);
+            bool boo = false;
             if (times <= this.Length)
             {
                 for (int i = 0; i < times; i++)
                 {
-                    AbstractWagon abstractWagon = this.WagonStack.Pop();
+                    this.WagonStack.Pop();
                 }
+                boo = true;
                 this.Length = this.WagonStack.Count;
             }
+            else boo = false;
         }
-        private void AddWagon(string operation)
+        private void AddWagon(Operation o)
         {
-            if (operation.Split(';')[1].Equals("M")) this.AddMerchandiseWagon(operation);
-            if (operation.Split(';')[1].Equals("P")) this.AddPassengerWagon(operation);
+            if (o.AddsMerchandise)
+                this.AddMerchandiseWagon(o.Value);
+            if (o.AddsPassenger)
+                this.AddPassengerWagon(o.Value);
         }
 
-        private void AddPassengerWagon(string operation)
+        private bool AddPassengerWagon(int count)
         {
-            int count = int.Parse(operation.Split(';')[2]);
+            bool boo = false;
             List<Passenger> passengers = new List<Passenger>(count);
-            for (int i = 0; i < count; i++)
+            for (int i = 0; i < passengers.Count; i++)
                 passengers.Add(new Passenger());
 
             PassengerWagon p = new PassengerWagon(passengers);
             this.WagonStack.Push(p);
             this.Length = this.WagonStack.Count;
+            boo = true;
+            return boo;
         }
-        private void AddMerchandiseWagon(string operation)
+        private bool AddMerchandiseWagon(int weight)
         {
-            MerchandiseWagon m = new MerchandiseWagon(int.Parse(operation.Split(';')[2]));
+            bool boo = false;
+            MerchandiseWagon m = new MerchandiseWagon(weight);
             this.WagonStack.Push(m);
             this.Length = this.WagonStack.Count;
-        }
-
-        private bool IsAddition(string operation)
-        {
-            return operation.StartsWith("A");
-        }
-        private bool IsSuppression(string operation)
-        {
-            return operation.StartsWith("S");
-        }
-        private bool ValidateTransation(string operation)
-        {
-            if (operation.Split(';')[0].StartsWith("A"))
-                return this.ValidateAddition(operation);
-            if (operation.Split(';')[0].StartsWith("S"))
-                return this.ValidateRemoval(operation);
-            else return false;
-        }
-        private bool ValidateRemoval(string operation)
-        {
-            return operation.Split(';').Length == 2;
-        }
-        private bool ValidateAddition(string operation)
-        {
-            string s = operation.Split(';')[1];
-            return operation.Split(';').Length == 3 && (s.Equals("M") || s.Equals("P"));
+            boo = true;
+            return boo;
         }
         #endregion
     }
