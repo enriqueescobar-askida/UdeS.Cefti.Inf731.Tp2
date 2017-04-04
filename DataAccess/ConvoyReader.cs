@@ -21,7 +21,7 @@
         /// <summary>
         /// The file path
         /// </summary>
-        private string filePath;
+        public string FilePath { get; internal set; }
         /// <summary>
         /// Gets the locomotive information.
         /// </summary>
@@ -46,8 +46,9 @@
         /// <exception cref="ConvoyFileNotFoundException">File path cannot be found</exception>
         public ConvoyReader(string aFilePath)
         {
-            if (new FileInfo(aFilePath).Exists) this.filePath = aFilePath;
+            if (new FileInfo(aFilePath).Exists) this.FilePath = aFilePath;
             else throw new ConvoyFileNotFoundException("File path cannot be found");
+            this.ReadFile();
         }
         #endregion
 
@@ -66,14 +67,37 @@
         #endregion
 
         #region PublicMethods
+        /// Performs application-defined tasks associated with freeing, releasing, or resetting unmanaged resources.
+        /// Do not make this method virtual, a derived class should not be able to override this method.
+        public void Dispose()
+        {
+            this.Dispose(true);
+            GC.SuppressFinalize(this);
+        }
+        #endregion
+
+        #region PublicOverride
+        /// <summary>
+        /// Returns a <see cref="System.String" /> that represents this instance.
+        /// </summary>
+        /// <returns>
+        /// A <see cref="System.String" /> that represents this instance.
+        /// </returns>
+        public override string ToString()
+        {
+            return this.FilePath;
+        }
+        #endregion
+
+        #region PrivateMethods
         /// <summary>
         /// Reads the file.
         /// </summary>
         /// <exception cref="ConvoyDataException">Character ';' cannot be found</exception>
-        public void ReadFile()
+        private void ReadFile()
         {
             List<Operation> operationList = new List<Operation>();
-            FileStream fileStream = new FileStream(this.filePath, FileMode.Open, FileAccess.Read);
+            FileStream fileStream = new FileStream(this.FilePath, FileMode.Open, FileAccess.Read);
             using (StreamReader streamReader = new StreamReader(fileStream)) //, Encoding.UTF8))
             {
                 string line;
@@ -93,29 +117,6 @@
             }
             this.OperationList = operationList;
         }
-        /// Performs application-defined tasks associated with freeing, releasing, or resetting unmanaged resources.
-        /// Do not make this method virtual, a derived class should not be able to override this method.
-        public void Dispose()
-        {
-            this.Dispose(true);
-            GC.SuppressFinalize(this);
-        }
-        #endregion
-
-        #region PublicOverride
-        /// <summary>
-        /// Returns a <see cref="System.String" /> that represents this instance.
-        /// </summary>
-        /// <returns>
-        /// A <see cref="System.String" /> that represents this instance.
-        /// </returns>
-        public override string ToString()
-        {
-            return this.filePath;
-        }
-        #endregion
-
-        #region PrivateMethods
         /// <summary>
         /// Validates the locomotive.
         /// </summary>
@@ -147,7 +148,7 @@
                 if (isDisposing)
                 {//managed resources clean
                     this.OperationList = null;
-                    this.LocomotiveInfo = this.filePath = String.Empty;
+                    this.LocomotiveInfo = this.FilePath = String.Empty;
                 }
                 //unmanaged resources clean
 

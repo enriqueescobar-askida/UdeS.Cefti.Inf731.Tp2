@@ -56,17 +56,19 @@
         #endregion
 
         #region Constructor
+
         /// <summary>
         /// Initializes a new instance of the <see cref="Convoy"/> class.
         /// </summary>
         /// <param name="locomotiveInfo">The locomotive information.</param>
-        public Convoy(string locomotiveInfo)
+        /// <param name="convoyReaderFilePath"></param>
+        public Convoy(string locomotiveInfo, string convoyReaderFilePath)
         {
             this.Locomotive = new Locomotive(locomotiveInfo);
             this.WeightInKilos = this.Locomotive.WeightInKilos;
             this.WagonStack = new Stack<AbstractWagon>();
             this.Length = 0;
-            this.JournalLog = new JournalLog();
+            this.JournalLog = new JournalLog(convoyReaderFilePath);
         }
         #endregion
 

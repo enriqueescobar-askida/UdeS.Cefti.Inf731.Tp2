@@ -2,6 +2,7 @@
 {
     using System;
     using System.Collections.Generic;
+    using System.IO;
 
     /// <summary>
     ///
@@ -22,15 +23,24 @@
         /// The entry logs.
         /// </value>
         public List<EntryLog> EntryLogs { get; internal set; }
+        /// <summary>
+        /// Set the output path
+        /// </summary>
+        private string outputFile;
         #endregion
 
         #region Constructor
         /// <summary>
         /// Initializes a new instance of the <see cref="JournalLog"/> class.
         /// </summary>
-        public JournalLog()
+        /// <param name="convoyReaderFilePath"></param>
+        public JournalLog(string convoyReaderFilePath)
         {
             this.EntryLogs = new List<EntryLog>();
+            this.outputFile = Path.Combine(
+                new DirectoryInfo(convoyReaderFilePath).Parent.FullName,
+                "Journal de bord - ",
+                new FileInfo(convoyReaderFilePath).Name);
         }
         #endregion
 
@@ -100,6 +110,7 @@
                 if (isDisposing)
                 {//managed resources clean
                     this.EntryLogs = null;
+                    this.outputFile = String.Empty;
                 }
                 //unmanaged resources clean
 
