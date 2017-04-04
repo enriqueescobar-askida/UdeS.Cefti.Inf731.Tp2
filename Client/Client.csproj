@@ -42,6 +42,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+    <None Include="Client.cd" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\BusinessLogic\BusinessLogic.csproj">
@@ -56,6 +57,14 @@
       <Project>{2437f23b-10a2-4f8e-9936-5da36ba41df8}</Project>
       <Name>Data</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup />
+  <ItemGroup>
+    <Content Include="Doc\BusinessLogic.png" />
+    <Content Include="Doc\Client.png" />
+    <Content Include="Doc\Data.png" />
+    <Content Include="Doc\DataAccess.png" />
+    <Content Include="Doc\Exceptions.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
