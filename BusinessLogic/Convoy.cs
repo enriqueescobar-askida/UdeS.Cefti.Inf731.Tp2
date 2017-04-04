@@ -108,7 +108,7 @@
             if(o.ItsRemoving)
                 entryLog = this.RemoveWagon(o.Value);
             this.JournalLog.Add(entryLog);
-            return o.Command + " ^^ " ;
+            return entryLog.Message ;
         }
         #endregion
 

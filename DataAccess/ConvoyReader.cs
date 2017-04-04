@@ -104,14 +104,13 @@
                 int count = 0;
                 while ((line = streamReader.ReadLine()) != null)
                 {
-                    line = line.ToUpperInvariant();
+                    line = line.ToUpperInvariant().Trim();
                     bool boo = line.Contains(";");
                     if (!boo)
                         throw new ConvoyDataException("Character ';' cannot be found");
                     if (count == 0)
                         this.ValidateLocomotive(line);
                     else operationList.Add(new Operation(line));
-                    Console.Out.WriteLine(line);
                     count++;
                 }
             }

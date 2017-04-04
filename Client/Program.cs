@@ -25,21 +25,14 @@ namespace Client
             {
                 // check construction
                 Console.Out.WriteLine(convoy.Locomotive);
-                // check reads
-                foreach (Operation o in convoyReader.OperationList)
-                    Console.Out.WriteLine(o.Command);
-                // check empty stack
-                Console.Out.WriteLine(convoy.WagonStack.Count);
                 // all reads
+                int i = 0;
                 foreach (Operation o in convoyReader.OperationList)
                 {
-                    // add read
-                    Console.Out.WriteLine(convoy.Transaction(o));
-                    // check stack size
-                    Console.Out.WriteLine(convoy.WagonStack.Count);
+                    Console.Out.WriteLine(i + ".-" + o.Command.PadRight(12) + "|" + convoy.Transaction(o) + "|" + convoy.WeightInKilos.ToString().PadRight(6) + "|" +convoy.WagonStack.Count);
+                    i++;
                 }
-                //check to string
-                Console.Out.WriteLine(convoy.JournalLog.ToString());
+                //check to string Console.Out.WriteLine(convoy.JournalLog.ToString());
                 Console.In.ReadLine();
             }
         }
