@@ -6,6 +6,10 @@
     using Data;
     using DataAccess;
 
+    /// <summary>
+    ///
+    /// </summary>
+    /// <seealso cref="System.IDisposable" />
     public class Convoy : IDisposable
     {
         #region PrivateAttributes
@@ -14,14 +18,48 @@
         #endregion
 
         #region Properties
+        /// <summary>
+        /// Gets the locomotive.
+        /// </summary>
+        /// <value>
+        /// The locomotive.
+        /// </value>
         public Locomotive Locomotive { get; internal set; }
+        /// <summary>
+        /// Gets the weight in kilos.
+        /// </summary>
+        /// <value>
+        /// The weight in kilos.
+        /// </value>
         public int WeightInKilos { get; internal set; }
+        /// <summary>
+        /// Gets the wagon stack.
+        /// </summary>
+        /// <value>
+        /// The wagon stack.
+        /// </value>
         public Stack<AbstractWagon> WagonStack { get; internal set; }
+        /// <summary>
+        /// Gets the length.
+        /// </summary>
+        /// <value>
+        /// The length.
+        /// </value>
         public int Length { get; internal set; }
+        /// <summary>
+        /// Gets the journal log.
+        /// </summary>
+        /// <value>
+        /// The journal log.
+        /// </value>
         public JournalLog JournalLog { get; internal set; }
         #endregion
 
         #region Constructor
+        /// <summary>
+        /// Initializes a new instance of the <see cref="Convoy"/> class.
+        /// </summary>
+        /// <param name="locomotiveInfo">The locomotive information.</param>
         public Convoy(string locomotiveInfo)
         {
             this.Locomotive = new Locomotive(locomotiveInfo);
@@ -47,11 +85,19 @@
         #endregion
 
         #region PublicMethods
+        /// <summary>
+        /// Releases unmanaged and - optionally - managed resources.
+        /// </summary>
         public void Dispose()
         {
             this.Dispose(true);
             GC.SuppressFinalize(this);
         }
+        /// <summary>
+        /// Transactions the specified o.
+        /// </summary>
+        /// <param name="o">The o.</param>
+        /// <returns></returns>
         public string Transaction(Operation o)
         {
             EntryLog entryLog = null;
@@ -65,6 +111,10 @@
         #endregion
 
         #region PrivateMethods
+        /// <summary>
+        /// Releases unmanaged and - optionally - managed resources.
+        /// </summary>
+        /// <param name="isDisposing"><c>true</c> to release both managed and unmanaged resources; <c>false</c> to release only unmanaged resources.</param>
         private void Dispose(bool isDisposing)
         {
             //Check if Dispose has been called
@@ -82,6 +132,11 @@
                 this._IsDisposed = true;
             }
         }
+        /// <summary>
+        /// Removes the wagon.
+        /// </summary>
+        /// <param name="times">The times.</param>
+        /// <returns></returns>
         private EntryLog RemoveWagon(int times)
         {
             if (times > this.Length)
@@ -98,6 +153,11 @@
                 return new EntryLog(true, this.Length, this.WeightInKilos, this.Locomotive.MetricTons);
             }
         }
+        /// <summary>
+        /// Adds the wagon.
+        /// </summary>
+        /// <param name="o">The o.</param>
+        /// <returns></returns>
         private EntryLog AddWagon(Operation o)
         {
             EntryLog entryLog = null;
@@ -108,6 +168,11 @@
             return entryLog;
         }
 
+        /// <summary>
+        /// Adds the passenger wagon.
+        /// </summary>
+        /// <param name="count">The count.</param>
+        /// <returns></returns>
         private EntryLog AddPassengerWagon(int count)
         {
             List<Passenger> passengers = new List<Passenger>(count);
@@ -120,6 +185,11 @@
             this.Length = this.WagonStack.Count;
             return new EntryLog(true, this.Length, this.WeightInKilos, this.Locomotive.MetricTons);
         }
+        /// <summary>
+        /// Adds the merchandise wagon.
+        /// </summary>
+        /// <param name="weight">The weight.</param>
+        /// <returns></returns>
         private EntryLog AddMerchandiseWagon(int weight)
         {
             MerchandiseWagon m = new MerchandiseWagon(weight);

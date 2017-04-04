@@ -2,6 +2,10 @@ namespace BusinessLogic
 {
     using System;
 
+    /// <summary>
+    ///
+    /// </summary>
+    /// <seealso cref="System.IDisposable" />
     public class EntryLog : IDisposable
     {
         #region PrivateAttributes
@@ -10,15 +14,34 @@ namespace BusinessLogic
         #endregion
 
         #region Constants
+        /// <summary>
+        /// The accepted
+        /// </summary>
         private const string Accepted = "Operation permitted";
+        /// <summary>
+        /// The refused
+        /// </summary>
         private const string Refused = "Operation refused";
         #endregion
 
         #region Properties
+        /// <summary>
+        /// Gets the message.
+        /// </summary>
+        /// <value>
+        /// The message.
+        /// </value>
         public string Message { get; internal set; }
         #endregion
 
         #region Constructor
+        /// <summary>
+        /// Initializes a new instance of the <see cref="EntryLog"/> class.
+        /// </summary>
+        /// <param name="boo">if set to <c>true</c> [boo].</param>
+        /// <param name="length">The length.</param>
+        /// <param name="weightInKilos">The weight in kilos.</param>
+        /// <param name="locomotiveMetricTons">The locomotive metric tons.</param>
         public EntryLog(bool boo, int length, int weightInKilos, int locomotiveMetricTons)
         {
             this.Message = boo ? Accepted : Refused;
@@ -41,6 +64,12 @@ namespace BusinessLogic
         #endregion
 
         #region PublicOverride
+        /// <summary>
+        /// Returns a <see cref="System.String" /> that represents this instance.
+        /// </summary>
+        /// <returns>
+        /// A <see cref="System.String" /> that represents this instance.
+        /// </returns>
         public override string ToString()
         {
             return this.Message;
@@ -48,6 +77,9 @@ namespace BusinessLogic
         #endregion
 
         #region PublicMethods
+        /// <summary>
+        /// Releases unmanaged and - optionally - managed resources.
+        /// </summary>
         public void Dispose()
         {
             this.Dispose(true);
@@ -56,6 +88,10 @@ namespace BusinessLogic
         #endregion
 
         #region Private
+        /// <summary>
+        /// Releases unmanaged and - optionally - managed resources.
+        /// </summary>
+        /// <param name="isDisposing"><c>true</c> to release both managed and unmanaged resources; <c>false</c> to release only unmanaged resources.</param>
         private void Dispose(bool isDisposing)
         {
             //Check if Dispose has been called

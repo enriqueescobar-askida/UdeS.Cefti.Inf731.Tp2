@@ -4,6 +4,10 @@
 
     using Exceptions;
 
+    /// <summary>
+    ///
+    /// </summary>
+    /// <seealso cref="System.IDisposable" />
     public class Operation : IDisposable
     {
         #region PrivateAttributes
@@ -12,15 +16,55 @@
         #endregion
 
         #region Properties
+        /// <summary>
+        /// Gets the command.
+        /// </summary>
+        /// <value>
+        /// The command.
+        /// </value>
         public string Command { get; internal set; }
+        /// <summary>
+        /// Gets the value.
+        /// </summary>
+        /// <value>
+        /// The value.
+        /// </value>
         public int Value { get; internal set; }
+        /// <summary>
+        /// Gets a value indicating whether [its adding].
+        /// </summary>
+        /// <value>
+        ///   <c>true</c> if [its adding]; otherwise, <c>false</c>.
+        /// </value>
         public bool ItsAdding { get; internal set; }
+        /// <summary>
+        /// Gets a value indicating whether [its removing].
+        /// </summary>
+        /// <value>
+        ///   <c>true</c> if [its removing]; otherwise, <c>false</c>.
+        /// </value>
         public bool ItsRemoving { get; internal set; }
+        /// <summary>
+        /// Gets a value indicating whether [adds passenger].
+        /// </summary>
+        /// <value>
+        ///   <c>true</c> if [adds passenger]; otherwise, <c>false</c>.
+        /// </value>
         public bool AddsPassenger { get; internal set; }
+        /// <summary>
+        /// Gets a value indicating whether [adds merchandise].
+        /// </summary>
+        /// <value>
+        ///   <c>true</c> if [adds merchandise]; otherwise, <c>false</c>.
+        /// </value>
         public bool AddsMerchandise { get; internal set; }
         #endregion
 
         #region Constructor
+        /// <summary>
+        /// Initializes a new instance of the <see cref="Operation"/> class.
+        /// </summary>
+        /// <param name="line">The line.</param>
         public Operation(string line)
         {
             if (this.ValidateLine(line.ToUpperInvariant()))
@@ -59,6 +103,12 @@
         #endregion
 
         #region PublicOverride
+        /// <summary>
+        /// Returns a <see cref="System.String" /> that represents this instance.
+        /// </summary>
+        /// <returns>
+        /// A <see cref="System.String" /> that represents this instance.
+        /// </returns>
         public override string ToString()
         {
             return this.Command;
@@ -66,6 +116,9 @@
         #endregion
 
         #region PublicMethods
+        /// <summary>
+        /// Releases unmanaged and - optionally - managed resources.
+        /// </summary>
         public void Dispose()
         {
             this.Dispose(true);
@@ -94,7 +147,7 @@
         {
             string[] strings = line.Split(';');
             int length = strings.Length;
-            if (length<2 || length>3)
+            if (length < 2 || length > 3)
                 throw new ConvoyArgumentException("Wrong number of parameters:" + length);
             if (length == 2)
             {

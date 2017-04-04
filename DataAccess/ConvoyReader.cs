@@ -6,6 +6,10 @@
 
     using Exceptions;
 
+    /// <summary>
+    ///
+    /// </summary>
+    /// <seealso cref="System.IDisposable" />
     public class ConvoyReader : IDisposable
     {
         #region PrivateAttributes
@@ -14,12 +18,32 @@
         #endregion
 
         #region Properties
+        /// <summary>
+        /// The file path
+        /// </summary>
         private string filePath;
+        /// <summary>
+        /// Gets the locomotive information.
+        /// </summary>
+        /// <value>
+        /// The locomotive information.
+        /// </value>
         public string LocomotiveInfo { get; internal set; }
+        /// <summary>
+        /// Gets the operation list.
+        /// </summary>
+        /// <value>
+        /// The operation list.
+        /// </value>
         public List<Operation> OperationList { get; internal set; }
         #endregion
 
         #region Constructor
+        /// <summary>
+        /// Initializes a new instance of the <see cref="ConvoyReader"/> class.
+        /// </summary>
+        /// <param name="aFilePath">a file path.</param>
+        /// <exception cref="ConvoyFileNotFoundException">File path cannot be found</exception>
         public ConvoyReader(string aFilePath)
         {
             if (new FileInfo(aFilePath).Exists) this.filePath = aFilePath;
@@ -42,6 +66,10 @@
         #endregion
 
         #region PublicMethods
+        /// <summary>
+        /// Reads the file.
+        /// </summary>
+        /// <exception cref="ConvoyDataException">Character ';' cannot be found</exception>
         public void ReadFile()
         {
             List<Operation> operationList = new List<Operation>();
@@ -75,6 +103,12 @@
         #endregion
 
         #region PublicOverride
+        /// <summary>
+        /// Returns a <see cref="System.String" /> that represents this instance.
+        /// </summary>
+        /// <returns>
+        /// A <see cref="System.String" /> that represents this instance.
+        /// </returns>
         public override string ToString()
         {
             return this.filePath;
@@ -82,6 +116,12 @@
         #endregion
 
         #region PrivateMethods
+        /// <summary>
+        /// Validates the locomotive.
+        /// </summary>
+        /// <param name="line">The line.</param>
+        /// <exception cref="ConvoyOutOfRangeException">Wrong number of parameters for locomotive</exception>
+        /// <exception cref="ConvoyArgumentException">Wrong argument format</exception>
         private void ValidateLocomotive(string line)
         {
             string[] s = line.Split(';');
@@ -95,6 +135,10 @@
             else
                 throw new ConvoyArgumentException("Wrong argument format");
         }
+        /// <summary>
+        /// Releases unmanaged and - optionally - managed resources.
+        /// </summary>
+        /// <param name="isDisposing"><c>true</c> to release both managed and unmanaged resources; <c>false</c> to release only unmanaged resources.</param>
         private void Dispose(bool isDisposing)
         {
             //Check if Dispose has been called

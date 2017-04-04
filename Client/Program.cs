@@ -6,8 +6,15 @@
     using BusinessLogic;
 
     using DataAccess;
+    /// <summary>
+    ///
+    /// </summary>
     public class Program
     {
+        /// <summary>
+        /// Mains the specified arguments.
+        /// </summary>
+        /// <param name="args">The arguments.</param>
         static void Main(string[] args)
         {
             Convoy convoy;
@@ -30,6 +37,7 @@
             }
             Console.Out.WriteLine(convoy.JournalLog.ToString());
             Console.In.ReadLine();
+            convoy.Dispose();
         }
     }
 }

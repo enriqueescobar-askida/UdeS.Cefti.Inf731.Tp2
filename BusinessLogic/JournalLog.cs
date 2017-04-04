@@ -3,6 +3,10 @@
     using System;
     using System.Collections.Generic;
 
+    /// <summary>
+    ///
+    /// </summary>
+    /// <seealso cref="System.IDisposable" />
     public class JournalLog : IDisposable
     {
         #region PrivateAttributes
@@ -11,10 +15,19 @@
         #endregion
 
         #region Properties
+        /// <summary>
+        /// Gets the entry logs.
+        /// </summary>
+        /// <value>
+        /// The entry logs.
+        /// </value>
         public List<EntryLog> EntryLogs { get; internal set; }
         #endregion
 
         #region Constructor
+        /// <summary>
+        /// Initializes a new instance of the <see cref="JournalLog"/> class.
+        /// </summary>
         public JournalLog()
         {
             this.EntryLogs = new List<EntryLog>();
@@ -36,22 +49,37 @@
         #endregion
 
         #region PublicOverride
+        /// <summary>
+        /// Returns a <see cref="System.String" /> that represents this instance.
+        /// </summary>
+        /// <returns>
+        /// A <see cref="System.String" /> that represents this instance.
+        /// </returns>
         public override string ToString()
         {
             string s = String.Empty;
+            var builder = new System.Text.StringBuilder();
+            builder.Append(s);
             foreach (EntryLog entryLog in this.EntryLogs)
-            {
-                s += entryLog.ToString() + "\n";
-            }
+                builder.Append(entryLog.ToString() + "\n");
+
+            s = builder.ToString();
             return s;
         }
         #endregion
 
         #region Public
+        /// <summary>
+        /// Adds the specified entry log.
+        /// </summary>
+        /// <param name="entryLog">The entry log.</param>
         public void Add(EntryLog entryLog)
         {
             this.EntryLogs.Add(entryLog);
         }
+        /// <summary>
+        /// Releases unmanaged and - optionally - managed resources.
+        /// </summary>
         public void Dispose()
         {
             this.Dispose(true);
@@ -60,6 +88,10 @@
         #endregion
 
         #region Private
+        /// <summary>
+        /// Releases unmanaged and - optionally - managed resources.
+        /// </summary>
+        /// <param name="isDisposing"><c>true</c> to release both managed and unmanaged resources; <c>false</c> to release only unmanaged resources.</param>
         private void Dispose(bool isDisposing)
         {
             //Check if Dispose has been called
