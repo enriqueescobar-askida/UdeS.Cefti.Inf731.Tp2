@@ -28,6 +28,7 @@
                 Console.Out.WriteLine(convoy.Transaction(o));
                 Console.Out.WriteLine(convoy.WagonStack.Count);
             }
+            Console.Out.WriteLine(convoy.JournalLog.ToString());
             Console.In.ReadLine();
         }
     }

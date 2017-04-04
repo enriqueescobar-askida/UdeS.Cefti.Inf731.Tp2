@@ -23,44 +23,51 @@
             this.Locomotive = new Locomotive(locomotiveInfo);
             this.WagonStack = new Stack<AbstractWagon>();
             this.Length = 0;
+            this.JournalLog = new JournalLog();
         }
         #endregion
 
         #region PublicMethods
         public string Transaction(Operation o)
         {
-            if(o.ItsAdding) this.AddWagon(o);
-            if(o.ItsRemoving) this.RemoveWagon(o.Value);
+            EntryLog entryLog = null;
+            if(o.ItsAdding)
+                entryLog = this.AddWagon(o);
+            if(o.ItsRemoving)
+                entryLog = this.RemoveWagon(o.Value);
+            this.JournalLog.Add(entryLog);
             return o.Command + " ^^ " ;
         }
         #endregion
 
         #region PrivateMethods
-        private void RemoveWagon(int times)
+        private EntryLog RemoveWagon(int times)
         {
-            bool boo = false;
-            if (times <= this.Length)
+            if (times > this.Length)
+                return new EntryLog(false);
+            // if (times <= this.Length)
+            else
             {
                 for (int i = 0; i < times; i++)
                 {
                     this.WagonStack.Pop();
                 }
-                boo = true;
                 this.Length = this.WagonStack.Count;
+                return new EntryLog(true);
             }
-            else boo = false;
         }
-        private void AddWagon(Operation o)
+        private EntryLog AddWagon(Operation o)
         {
+            EntryLog entryLog = null;
             if (o.AddsMerchandise)
-                this.AddMerchandiseWagon(o.Value);
+                entryLog = this.AddMerchandiseWagon(o.Value);
             if (o.AddsPassenger)
-                this.AddPassengerWagon(o.Value);
+                entryLog = this.AddPassengerWagon(o.Value);
+            return entryLog;
         }
 
-        private bool AddPassengerWagon(int count)
+        private EntryLog AddPassengerWagon(int count)
         {
-            bool boo = false;
             List<Passenger> passengers = new List<Passenger>(count);
             for (int i = 0; i < passengers.Count; i++)
                 passengers.Add(new Passenger());
@@ -68,17 +75,14 @@
             PassengerWagon p = new PassengerWagon(passengers);
             this.WagonStack.Push(p);
             this.Length = this.WagonStack.Count;
-            boo = true;
-            return boo;
+            return new EntryLog(true);
         }
-        private bool AddMerchandiseWagon(int weight)
+        private EntryLog AddMerchandiseWagon(int weight)
         {
-            bool boo = false;
             MerchandiseWagon m = new MerchandiseWagon(weight);
             this.WagonStack.Push(m);
             this.Length = this.WagonStack.Count;
-            boo = true;
-            return boo;
+            return new EntryLog(true);
         }
         #endregion
     }

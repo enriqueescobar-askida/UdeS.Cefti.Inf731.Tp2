@@ -3,7 +3,7 @@ namespace BusinessLogic
     using System;
     using System.Runtime.CompilerServices;
 
-    public class EntryLog : IDisposable
+    public class EntryLog
     {
         private const string Accepted = "Operation permitted";
 
@@ -13,9 +13,10 @@ namespace BusinessLogic
         {
             this.Message = boo ? Accepted : Refused;
         }
-        public void Dispose()
+
+        public override string ToString()
         {
-            throw new NotImplementedException();
+            return this.Message;
         }
     }
 }
