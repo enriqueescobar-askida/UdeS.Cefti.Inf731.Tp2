@@ -183,7 +183,7 @@
 
             PassengerWagon p = new PassengerWagon(passengers);
             this.WagonStack.Push(p);
-            this.WeightInKilos += p.WeightInKilos;
+            this.WeightInKilos = this.WeightInKilos + p.WeightInKilos;
             this.Length = this.WagonStack.Count;
             return new EntryLog(true, this.Length, this.WeightInKilos, this.Locomotive.MetricTons);
         }
@@ -196,7 +196,7 @@
         {
             MerchandiseWagon m = new MerchandiseWagon(weight);
             this.WagonStack.Push(m);
-            this.WeightInKilos += m.WeightInKilos;
+            this.WeightInKilos = this.WeightInKilos + m.WeightInKilos;
             this.Length = this.WagonStack.Count;
             return new EntryLog(true, this.Length, this.WeightInKilos, this.Locomotive.MetricTons);
         }

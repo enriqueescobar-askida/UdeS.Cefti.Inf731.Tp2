@@ -3,6 +3,7 @@
     using System;
     using System.Collections.Generic;
     using System.IO;
+    using System.Text;
 
     /// <summary>
     ///
@@ -39,8 +40,7 @@
             this.EntryLogs = new List<EntryLog>();
             this.outputFile = Path.Combine(
                 new DirectoryInfo(convoyReaderFilePath).Parent.FullName,
-                "Journal de bord - ",
-                new FileInfo(convoyReaderFilePath).Name);
+                "Journal - " + new FileInfo(convoyReaderFilePath).Name);
         }
         #endregion
 
@@ -68,10 +68,10 @@
         public override string ToString()
         {
             string s = String.Empty;
-            var builder = new System.Text.StringBuilder();
+            StringBuilder builder = new StringBuilder();
             builder.Append(s);
             foreach (EntryLog entryLog in this.EntryLogs)
-                builder.Append(entryLog.ToString() + "\n");
+                builder.Append(entryLog + "\n");
 
             s = builder.ToString();
             return s;
