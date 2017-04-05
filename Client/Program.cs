@@ -32,7 +32,8 @@ namespace Client
                     Console.Out.WriteLine(i + ".-" + o.Command.PadRight(12) + "|" + convoy.Transaction(o) + "|" + convoy.WeightInKilos.ToString().PadRight(6) + "|" +convoy.WagonStack.Count);
                     i++;
                 }
-                //check to string Console.Out.WriteLine(convoy.JournalLog.ToString());
+                //check to string
+		Console.WriteLine(convoy.JournalLog.ToString());
                 Console.In.ReadLine();
             }
         }
