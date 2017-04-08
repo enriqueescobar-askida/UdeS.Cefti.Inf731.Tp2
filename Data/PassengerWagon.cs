@@ -1,7 +1,6 @@
 ﻿namespace Data
 {
     using System.Collections.Generic;
-    using System.Linq;
 
     using Exceptions;
 
@@ -52,28 +51,34 @@
         /// <summary>
         /// Initializes a new instance of the <see cref="PassengerWagon"/> class.
         /// </summary>
-        /// <param name="weight">The weight.</param>
-        /// <exception cref="Exceptions.WagonOutOfRangeException">Weight is out of range [ + defaultKilos + , + this.Limit + ]</exception>
-        public PassengerWagon(int weight = defaultKilos)
+        public PassengerWagon()
         {
-            if (weight < defaultKilos || weight > Limit)
-                throw new WagonOutOfRangeException("Weight is out of range [" + defaultKilos + "," + Limit + "]");
-            WeightInKilos = weight;
+            this.WeightInKilos = defaultKilos;
         }
         /// <summary>
         /// Initializes a new instance of the <see cref="PassengerWagon"/> class.
         /// </summary>
-        /// <param name="passengers">The passengers.</param>
-        public PassengerWagon(List<Passenger> passengers)
+        /// <param name="totalNumber">The passengers total number.</param>
+        /// <exception cref="Exceptions.WagonOutOfRangeException">Weight is out of range [ + defaultKilos + , + this.Limit + ]</exception>
+        public PassengerWagon(int totalNumber)
         {
-            /*if (passengers.Count > passengerLimit)
-                throw new WagonOutOfRangeException("Passenger number is out of range " + passengers.Count + ">" + passengerLimit);*/
-            PassengerList = passengers;
-            int kilos = passengers.Sum(passenger => passenger.WeightInKilos);
+            if (totalNumber > passengerLimit || totalNumber <= 0)
+                throw new WagonOutOfRangeException("Passenger number is out of range " + totalNumber + ">" + passengerLimit);
 
-            /*if (kilos < defaultKilos || kilos > this.Limit)
-                throw new WagonOutOfRangeException("Weight is out of range [" + defaultKilos + "," + this.Limit + "]");*/
-            WeightInKilos = kilos;
+            Passenger passenger;
+            List<Passenger> passengers = new List<Passenger>(totalNumber);
+            int kilos = 0;
+            for (int i = 0; i < totalNumber; i++)
+            {
+                passenger = new Passenger();
+                passengers.Add(passenger);
+                kilos += passenger.WeightInKilos;
+            }
+
+            this.WeightInKilos = kilos + defaultKilos;
+            if (this.WeightInKilos < defaultKilos || this.WeightInKilos > this.Limit)
+                throw new WagonOutOfRangeException("Weight is out of range [" + defaultKilos + "," + this.Limit + "]");
+            this.PassengerList = passengers;
         }
         #endregion
 

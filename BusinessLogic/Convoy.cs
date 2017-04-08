@@ -103,12 +103,25 @@
         public string Transaction(Operation o)
         {
             EntryLog entryLog = null;
-            if(o.ItsAdding)
-                entryLog = this.AddWagon(o);
-            if(o.ItsRemoving)
+            string s = (o.ItsAdding) ? "+" : "-" ;
+            if (o.ItsAdding)
+            {
+                AbstractWagon a;
+                if (o.AddsMerchandise) a = new MerchandiseWagon(o.Value);
+                else a = new PassengerWagon(o.Value);
+                entryLog = this.AddWagon(a);
+                s += (o.AddsMerchandise) ? "m" : "p";
+                s += "_" + a.WeightInKilos;
+            }
+            else
+            {
                 entryLog = this.RemoveWagon(o.Value);
+                s += "s_";
+            }
+            
             this.JournalLog.Add(entryLog);
             return entryLog.Message ;
+            //return s.PadRight(10) + "?";
         }
         #endregion
 
@@ -141,62 +154,35 @@
         /// <returns></returns>
         private EntryLog RemoveWagon(int times)
         {
-            if (times > this.Length)
-                return new EntryLog(false, this.Length, this.WeightInKilos, this.Locomotive.MetricTons);
+            bool boo = false;
+            if (times > this.Length) boo = false;
+                // return new EntryLog(false, this.Length, this.WeightInKilos, this.Locomotive.MetricTons);
             // if (times <= this.Length)
             else
             {
+                AbstractWagon abstractWagon;
+                int kilos = 0;
                 for (int i = 0; i < times; i++)
                 {
-                    AbstractWagon abstractWagon = this.WagonStack.Pop();
-                    this.WeightInKilos -= abstractWagon.WeightInKilos;
+                    abstractWagon = this.WagonStack.Pop();
+                    kilos += abstractWagon.WeightInKilos;
                 }
+                this.WeightInKilos -= kilos;
                 this.Length = this.WagonStack.Count;
-                return new EntryLog(true, this.Length, this.WeightInKilos, this.Locomotive.MetricTons);
+                // return new EntryLog(true, this.Length, this.WeightInKilos, this.Locomotive.MetricTons);
+                boo = true;
             }
+            return new EntryLog(boo, this.Length, this.WeightInKilos, this.Locomotive.MetricTons);
         }
         /// <summary>
         /// Adds the wagon.
         /// </summary>
-        /// <param name="o">The o.</param>
+        /// <param name="a">The abstract wagon.</param>
         /// <returns></returns>
-        private EntryLog AddWagon(Operation o)
+        private EntryLog AddWagon(AbstractWagon a)
         {
-            EntryLog entryLog = null;
-            if (o.AddsMerchandise)
-                entryLog = this.AddMerchandiseWagon(o.Value);
-            if (o.AddsPassenger)
-                entryLog = this.AddPassengerWagon(o.Value);
-            return entryLog;
-        }
-
-        /// <summary>
-        /// Adds the passenger wagon.
-        /// </summary>
-        /// <param name="count">The count.</param>
-        /// <returns></returns>
-        private EntryLog AddPassengerWagon(int count)
-        {
-            List<Passenger> passengers = new List<Passenger>(count);
-            for (int i = 0; i < passengers.Count; i++)
-                passengers.Add(new Passenger());
-
-            PassengerWagon p = new PassengerWagon(passengers);
-            this.WagonStack.Push(p);
-            this.WeightInKilos = this.WeightInKilos + p.WeightInKilos;
-            this.Length = this.WagonStack.Count;
-            return new EntryLog(true, this.Length, this.WeightInKilos, this.Locomotive.MetricTons);
-        }
-        /// <summary>
-        /// Adds the merchandise wagon.
-        /// </summary>
-        /// <param name="weight">The weight.</param>
-        /// <returns></returns>
-        private EntryLog AddMerchandiseWagon(int weight)
-        {
-            MerchandiseWagon m = new MerchandiseWagon(weight);
-            this.WagonStack.Push(m);
-            this.WeightInKilos = this.WeightInKilos + m.WeightInKilos;
+            this.WagonStack.Push(a);
+            this.WeightInKilos += a.WeightInKilos;
             this.Length = this.WagonStack.Count;
             return new EntryLog(true, this.Length, this.WeightInKilos, this.Locomotive.MetricTons);
         }

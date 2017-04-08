@@ -46,6 +46,13 @@
         public int WeightInKilos { get; internal set; }
         #endregion
 
+        #region PublicOverride
+        public override string ToString()
+        {
+            return base.ToString() + "[" + this.WeightInKilos + "]";
+        }
+        #endregion
+
         #region DisposableMethods
         /// <summary>
         /// Releases unmanaged and - optionally - managed resources.
