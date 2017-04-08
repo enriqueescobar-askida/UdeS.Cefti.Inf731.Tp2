@@ -10,11 +10,14 @@
     ///
     /// </summary>
     /// <seealso cref="System.IDisposable" />
-    public class ConvoyReader : IDisposable
+    public class ConvoyManager : IDisposable
     {
         #region PrivateAttributes
         /// Flag for disposed resources
         private bool _IsDisposed = false;
+
+        private string outputFile;
+
         #endregion
 
         #region Properties
@@ -40,14 +43,17 @@
 
         #region Constructor
         /// <summary>
-        /// Initializes a new instance of the <see cref="ConvoyReader"/> class.
+        /// Initializes a new instance of the <see cref="ConvoyManager"/> class.
         /// </summary>
         /// <param name="aFilePath">a file path.</param>
         /// <exception cref="ConvoyFileNotFoundException">File path cannot be found</exception>
-        public ConvoyReader(string aFilePath)
+        public ConvoyManager(string aFilePath)
         {
             if (new FileInfo(aFilePath).Exists) this.FilePath = aFilePath;
             else throw new ConvoyFileNotFoundException("File path cannot be found");
+            this.outputFile = Path.Combine(
+                new DirectoryInfo(aFilePath).Parent.FullName,
+                "Journal - " + new FileInfo(aFilePath).Name);
             this.ReadFile();
         }
         #endregion
@@ -58,7 +64,7 @@
         /// This destructor will run only if the Dispose method does not get called.
         /// It gives your base class the opportunity to finalize.
         /// Do not provide destructor in types derived from this class.
-        ~ConvoyReader()
+        ~ConvoyManager()
         {
             // Do not re-create Dispose clean-up code here.
             // Calling Dispose(false) is optimal in terms of readability and maintainability.
@@ -156,5 +162,11 @@
             }
         }
         #endregion
+
+        public void Write(string s)
+        {
+            using (StreamWriter streamWriter = new StreamWriter(this.outputFile))
+                streamWriter.WriteLine(s);
+        }
     }
 }

@@ -38,9 +38,6 @@
         public JournalLog(string convoyReaderFilePath)
         {
             this.EntryLogs = new List<EntryLog>();
-            this.outputFile = Path.Combine(
-                new DirectoryInfo(convoyReaderFilePath).Parent.FullName,
-                "Journal - " + new FileInfo(convoyReaderFilePath).Name);
         }
         #endregion
 

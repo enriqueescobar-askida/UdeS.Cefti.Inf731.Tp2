@@ -49,6 +49,10 @@
       <Project>{2437f23b-10a2-4f8e-9936-5da36ba41df8}</Project>
       <Name>Data</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Exceptions\Exceptions.csproj">
+      <Project>{29A08BCF-B796-4FFE-93A9-D731B9BF5B7E}</Project>
+      <Name>Exceptions</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <None Include="BusinessLogic.cd" />
