@@ -102,26 +102,29 @@
         /// <returns></returns>
         public string Transaction(Operation o)
         {
-            EntryLog entryLog = null;
+            //EntryLog entryLog = null;
             string s = (o.ItsAdding) ? "+" : "-" ;
             if (o.ItsAdding)
             {
                 AbstractWagon a;
                 if (o.AddsMerchandise) a = new MerchandiseWagon(o.Value);
                 else a = new PassengerWagon(o.Value);
-                entryLog = this.AddWagon(a);
+                //entryLog = this.AddWagon(a);
+                this.AddWagon(a);
                 s += (o.AddsMerchandise) ? "m" : "p";
-                s += "_" + a.WeightInKilos;
+                s += "_" + a;
+                s = s.PadRight(30);
             }
             else
             {
-                entryLog = this.RemoveWagon(o.Value);
-                s += "s_";
+                //entryLog = this.RemoveWagon(o.Value);
+                s += "s_" + this.RemoveWagon(o.Value);
+                s = s.PadRight(30);
             }
             
-            this.JournalLog.Add(entryLog);
-            return entryLog.Message ;
-            //return s.PadRight(10) + "?";
+            //this.JournalLog.Add(entryLog);
+            //return entryLog.Message ;
+            return s.PadRight(10) + "?";
         }
         #endregion
 
@@ -152,9 +155,10 @@
         /// </summary>
         /// <param name="times">The times.</param>
         /// <returns></returns>
-        private EntryLog RemoveWagon(int times)
+        private /*EntryLog*/ string RemoveWagon(int times)
         {
             bool boo = false;
+            int kays = 0;
             if (times > this.Length) boo = false;
                 // return new EntryLog(false, this.Length, this.WeightInKilos, this.Locomotive.MetricTons);
             // if (times <= this.Length)
@@ -167,24 +171,26 @@
                     abstractWagon = this.WagonStack.Pop();
                     kilos += abstractWagon.WeightInKilos;
                 }
+                kays = kilos;
                 this.WeightInKilos -= kilos;
                 this.Length = this.WagonStack.Count;
                 // return new EntryLog(true, this.Length, this.WeightInKilos, this.Locomotive.MetricTons);
                 boo = true;
             }
-            return new EntryLog(boo, this.Length, this.WeightInKilos, this.Locomotive.MetricTons);
+            //return new EntryLog(boo, this.Length, this.WeightInKilos, this.Locomotive.MetricTons);
+            return kays.ToString();
         }
         /// <summary>
         /// Adds the wagon.
         /// </summary>
         /// <param name="a">The abstract wagon.</param>
         /// <returns></returns>
-        private EntryLog AddWagon(AbstractWagon a)
+        private /*EntryLog*/ void AddWagon(AbstractWagon a)
         {
             this.WagonStack.Push(a);
             this.WeightInKilos += a.WeightInKilos;
             this.Length = this.WagonStack.Count;
-            return new EntryLog(true, this.Length, this.WeightInKilos, this.Locomotive.MetricTons);
+            //return new EntryLog(true, this.Length, this.WeightInKilos, this.Locomotive.MetricTons);
         }
         #endregion
     }

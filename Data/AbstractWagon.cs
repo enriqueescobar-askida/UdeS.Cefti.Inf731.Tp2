@@ -49,7 +49,7 @@
         #region PublicOverride
         public override string ToString()
         {
-            return base.ToString() + "[" + this.WeightInKilos + "]";
+            return base.ToString().Split('.')[1] + "[" + this.WeightInKilos + "]";
         }
         #endregion
 
