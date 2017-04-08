@@ -1,14 +1,15 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <ClassDiagram MajorVersion="1" MinorVersion="1" MembersFormat="FullSignature">
   <Class Name="Data.AbstractWagon">
-    <Position X="2.75" Y="0.5" Width="2.25" />
+    <Position X="4.25" Y="0.5" Width="2.25" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAAAAgAAQAAAAAAAAAAAAAAAQAAAAA=</HashCode>
+      <HashCode>AAAAAACAACAAAAAEAAgAAQAAAAAAAAAAAAAAAQAAAAA=</HashCode>
       <FileName>AbstractWagon.cs</FileName>
     </TypeIdentifier>
+    <Lollipop Position="0.2" />
   </Class>
   <Class Name="Data.Locomotive">
-    <Position X="4" Y="5.5" Width="2.5" />
+    <Position X="7" Y="3.75" Width="2.5" />
     <TypeIdentifier>
       <HashCode>AAAAAACAACAgAAAEAAgAAAAAAAAAAAAAAAAAAQAAAAA=</HashCode>
       <FileName>Locomotive.cs</FileName>
@@ -16,14 +17,14 @@
     <Lollipop Position="0.2" />
   </Class>
   <Class Name="Data.MerchandiseWagon">
-    <Position X="4" Y="2.75" Width="3.25" />
+    <Position X="6.75" Y="0.5" Width="3.25" />
     <TypeIdentifier>
-      <HashCode>AAAIAAAAAAAAAAAAAAAAAQAAAAEAAAAAAAAAAAAAAAA=</HashCode>
+      <HashCode>AAAIAACAACAAAAAAAAAAAQAAAAEAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>MerchandiseWagon.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Data.Passenger">
-    <Position X="0.5" Y="6" Width="2.75" />
+    <Position X="0.5" Y="4.25" Width="2.75" />
     <TypeIdentifier>
       <HashCode>AAAIAACAACAAAAAAAAAAAAAAAAAAAAAAAAAAAQAAAAA=</HashCode>
       <FileName>Passenger.cs</FileName>
@@ -31,9 +32,9 @@
     <Lollipop Position="0.2" />
   </Class>
   <Class Name="Data.PassengerWagon">
-    <Position X="0.5" Y="2.75" Width="3.25" />
+    <Position X="0.5" Y="0.5" Width="3.25" />
     <TypeIdentifier>
-      <HashCode>AAAIAAIAAAAAAAAAAAAAAQAAAAEAAAAAAAAAAEAAAAA=</HashCode>
+      <HashCode>AAAIAAKAACAAAAAAAAAAAQAAAAEAAAAAAAAAAEAAAAA=</HashCode>
       <FileName>PassengerWagon.cs</FileName>
     </TypeIdentifier>
   </Class>
