@@ -7,7 +7,7 @@
     using Exceptions;
 
     /// <summary>
-    ///
+    /// Convoy Manager class
     /// </summary>
     /// <seealso cref="System.IDisposable" />
     public class ConvoyManager : IDisposable
